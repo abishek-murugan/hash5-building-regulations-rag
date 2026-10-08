@@ -13,7 +13,7 @@ import uvicorn
 @click.option("--reload", is_flag=True)
 def main(port: int, host: str, reload: bool):
     uvicorn.run(
-        "defence_rag.api.main:app",
+        "hash5_rag.api.main:app",
         host=host,
         port=port,
         reload=reload,

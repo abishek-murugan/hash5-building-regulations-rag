@@ -3,13 +3,13 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from defence_rag.config import get_settings
-from defence_rag.evaluation.ragas_compat import import_ragas
-from defence_rag.evaluation.testset import load_testset
-from defence_rag.graph.build import build_graph
-from defence_rag.graph.state import initial_state
-from defence_rag.llm import build_chat_with_fallbacks
-from defence_rag.vectorstore import DefenceVectorStore
+from hash5_rag.config import get_settings
+from hash5_rag.evaluation.ragas_compat import import_ragas
+from hash5_rag.evaluation.testset import load_testset
+from hash5_rag.graph.build import build_graph
+from hash5_rag.graph.state import initial_state
+from hash5_rag.llm import build_chat_with_fallbacks
+from hash5_rag.vectorstore import Hash5VectorStore
 
 
 def _runtime_dir() -> Path:
@@ -32,7 +32,7 @@ def run_graph_on_rows(rows: list[dict], shard_size: int | None = None) -> list[d
         return [json.loads((run_dir / f"{r['id']}.json").read_text()) for r in rows]
 
     llm = build_chat_with_fallbacks()
-    store = DefenceVectorStore(settings)
+    store = Hash5VectorStore(settings)
     graph = build_graph(llm, store, settings=settings)
     results = []
     try:

@@ -20,7 +20,7 @@ class Settings(BaseSettings):
 
     langsmith_api_key: str | None = None
     langsmith_tracing: bool = True
-    langsmith_project: str = "defence-rag"
+    langsmith_project: str = "hash5-rag"
 
     primary_model: str = "nvidia/nemotron-3-super-120b-a12b:free"
     fallback_models: str = (
@@ -34,7 +34,7 @@ class Settings(BaseSettings):
     embeddings_offline: bool = False
 
     qdrant_url: str = "http://localhost:6333"
-    qdrant_collection: str = "defence_kb"
+    qdrant_collection: str = "hash5_kb"
 
     chunk_size: int = 800
     chunk_overlap: int = 120

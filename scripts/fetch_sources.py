@@ -1,11 +1,11 @@
-"""Fetch public-domain defence documents into data/raw.
+"""Fetch public-domain building regulations and codes documents into data/raw.
 
 The manifest ships with URLs archived on the Internet Archive (web.archive.org),
 which keeps the pipeline reproducible even if the original publishers move files.
 Direct origins are preferred, wayback snapshots are the fallback.
 
 Usage:
-  uv run python scripts/fetch_sources.py [--manifest manifests/defence_sources.json] [--url <id>=<url>]
+  uv run python scripts/fetch_sources.py [--manifest manifests/hash5_sources.json] [--url <id>=<url>]
 """
 import json
 import sys
@@ -16,9 +16,9 @@ import httpx
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT / "data" / "raw"
-DEFAULT_MANIFEST = ROOT / "manifests" / "defence_sources.json"
+DEFAULT_MANIFEST = ROOT / "manifests" / "hash5_sources.json"
 
-UA = {"User-Agent": "defence-rag-fetcher/0.1 (portfolio; contacts public domain docs)"}
+UA = {"User-Agent": "hash5-rag-fetcher/0.1 (portfolio; contacts public domain docs)"}
 
 
 def _wayback_snapshot(url: str, client: httpx.Client) -> str | None:

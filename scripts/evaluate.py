@@ -13,13 +13,13 @@ import json
 
 import click
 
-from defence_rag.config import get_settings
-from defence_rag.evaluation.evaluate_shard import (
+from hash5_rag.config import get_settings
+from hash5_rag.evaluation.evaluate_shard import (
     compute_metrics,
     load_runs,
     run_graph_on_rows,
 )
-from defence_rag.evaluation.testset import build_testset, load_testset, save_testset
+from hash5_rag.evaluation.testset import build_testset, load_testset, save_testset
 
 
 @click.group()

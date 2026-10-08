@@ -1,7 +1,7 @@
 from typing import Callable
 
-from defence_rag.config import Settings
-from defence_rag.graph.state import RagState
+from hash5_rag.config import Settings
+from hash5_rag.graph.state import RagState
 
 Edge = Callable[[RagState], str]
 

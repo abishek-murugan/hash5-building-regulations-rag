@@ -1,10 +1,10 @@
-from defence_rag.guards import DefenceGuards
+from hash5_rag.guards import Hash5Guards
 
-GUARDS = DefenceGuards()
+GUARDS = Hash5Guards()
 
 
-def test_benign_defence_query_passes():
-    passed, reasons = GUARDS.check_input("What does NATO's Strategic Concept say about deterrence?")
+def test_benign_query_passes():
+    passed, reasons = GUARDS.check_input("What are setback requirements as per building regulations?")
     assert passed
     assert reasons == []
 

@@ -2,10 +2,10 @@ import logging
 
 from langchain_core.language_models import BaseChatModel
 
-from defence_rag.config import Settings
-from defence_rag.guards import DefenceGuards
-from defence_rag.parsing import extract_json, get_bool, get_int_list, get_str
-from defence_rag.prompts import (
+from hash5_rag.config import Settings
+from hash5_rag.guards import Hash5Guards
+from hash5_rag.parsing import extract_json, get_bool, get_int_list, get_str
+from hash5_rag.prompts import (
     answer_relevance_prompt,
     generate_prompt,
     grade_prompt,
@@ -14,7 +14,7 @@ from defence_rag.prompts import (
     rewrite_prompt,
     router_prompt,
 )
-from defence_rag.vectorstore import DefenceVectorStore
+from hash5_rag.vectorstore import Hash5VectorStore
 
 logger = logging.getLogger(__name__)
 
@@ -30,8 +30,8 @@ def ask_json(llm: BaseChatModel, messages: list[dict], default: dict | None = No
 
 
 class RagNodes:
-    def __init__(self, llm: BaseChatModel, store: DefenceVectorStore,
-                 guards: DefenceGuards, settings: Settings, embeddings=None):
+    def __init__(self, llm: BaseChatModel, store: Hash5VectorStore,
+                 guards: Hash5Guards, settings: Settings, embeddings=None):
         self.llm = llm
         self.store = store
         self.guards = guards
@@ -78,7 +78,7 @@ class RagNodes:
         query = state.get("rewritten_query") or state["query"]
         embeddings = self.embeddings
         if embeddings is None:
-            from defence_rag.llm import get_cached_embeddings
+            from hash5_rag.llm import get_cached_embeddings
 
             embeddings = get_cached_embeddings()
         dense = embeddings.embed_query(query)

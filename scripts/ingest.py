@@ -5,17 +5,17 @@ Usage:
 """
 import click
 
-from defence_rag.config import get_settings
-from defence_rag.documents import load_sources, split_documents
-from defence_rag.llm import get_cached_embeddings
-from defence_rag.vectorstore import DefenceVectorStore
+from hash5_rag.config import get_settings
+from hash5_rag.documents import load_sources, split_documents
+from hash5_rag.llm import get_cached_embeddings
+from hash5_rag.vectorstore import Hash5VectorStore
 
 
 @click.command()
 @click.option("--reset", is_flag=True, help="Drop and recreate the collection")
 def main(reset: bool):
     settings = get_settings()
-    store = DefenceVectorStore(settings)
+    store = Hash5VectorStore(settings)
     try:
         embeddings = get_cached_embeddings()
         docs = load_sources(settings.data_dir)

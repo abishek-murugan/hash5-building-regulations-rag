@@ -1,0 +1,23 @@
+{
+  "description": "Public-domain building regulations and codes documents (e.g. NBC, building bye-laws, development control rules, zoning regulations). Prefer original URLs; mirrors and Internet Archive snapshots are fetched automatically as fallbacks.",
+  "sources": [
+    {
+      "id": "tncdrbr_2019",
+      "title": "Tamil Nadu Combined Development and Building Rules 2019",
+      "url": "https://tnbuildingrules.in/",
+      "note": "Tamil Nadu building regulations and development control rules."
+    },
+    {
+      "id": "nbc_part_3",
+      "title": "National Building Code of India - Part 3 (General Building Requirements)",
+      "url": "https://www.bis.gov.in/standards/technical-department/national-building-code/",
+      "note": "NBC Part 3 covers building planning, occupancy, circulation, general requirements."
+    },
+    {
+      "id": "nbc_general",
+      "title": "National Building Code of India (relevant provisions)",
+      "url": "https://www.bis.gov.in/standards/technical-department/national-building-code/",
+      "note": "Covers general building requirements and regulations."
+    }
+  ]
+}

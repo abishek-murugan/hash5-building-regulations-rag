@@ -79,19 +79,17 @@ class OffTopic(Validator):
         lower = value.lower().strip()
         greet = re.fullmatch(r"(hi|hello|hey|yo|thanks|thank you|ok|okay)[. ,!?]*", lower)
         hits = [k for k in _OFFTOPIC_HINTS if k in lower]
-        if hits or (greet is None and len(lower) > self.MIN_LEN and not self._defenceish(lower)):
-            return FailResult(error_message="Off-topic: question is outside defence scope")
+        if hits or (greet is None and len(lower) > self.MIN_LEN and not self._bldgish(lower)):
+            return FailResult(error_message="Off-topic: question is outside building regulations scope")
         return PassResult()
 
     @staticmethod
-    def _defenceish(text: str) -> bool:
+    def _bldgish(text: str) -> bool:
         tokens = {
-            "nato", "defence", "defense", "military", "army", "air force", "navy",
-            "doctrine", "weapon", "war", "conflict", "security", "missile", "drone",
-            "autonomy", "deterrence", "strategy", "rate treaty", "cyber", "intelligence",
-            "tank", "fighter", "combat", "nuclear", "treaty", "alliance", "geopolitic",
-            "logistics", "procurement", "interoperability", "command", "doctrine",
-            "doctrinal", "forces", "command control", "munitions", "raid", "feasibility",
+            "building", "construction", "code", "regulation", "bye law", "bye-law", "bye laws", "bye-laws",
+            "nbc", "national building code", "zoning", "setback", "setbacks", "far", "fsi", "coverage", "plot",
+            "occupancy", "fire safety", "height", "parking", "floor area", "built up", "plinth", "road width",
+            "margin", "open space", "rera", "development control", "planning", "tdr", "approval", "permit", "sanction",
         }
         return any(tok in text for tok in tokens)
 
@@ -114,7 +112,7 @@ def _summarize(outcome: ValidationOutcome) -> list[str]:
     return reasons
 
 
-class DefenceGuards:
+class Hash5Guards:
     def __init__(self):
         self.input_guard: Guard = Guard().use(
             ProhibitedPatterns(on_fail="noop"),
@@ -134,4 +132,4 @@ class DefenceGuards:
         return outcome.validation_passed, _summarize(outcome)
 
 
-guards = DefenceGuards()
+guards = Hash5Guards()

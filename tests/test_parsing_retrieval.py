@@ -1,6 +1,6 @@
 import pytest
 
-from defence_rag.parsing import extract_json, get_bool, get_int_list, get_str
+from hash5_rag.parsing import extract_json, get_bool, get_int_list, get_str
 
 
 def test_extract_json_plain():
@@ -41,7 +41,7 @@ def test_get_int_list():
 
 
 def test_hybrid_search_rrf_and_limit(seeded_store):
-    from defence_rag.llm import CachedEmbeddings
+    from hash5_rag.llm import CachedEmbeddings
 
     class Dummy(CachedEmbeddings):
         def embed_query(self, text):
@@ -57,6 +57,6 @@ def test_count_and_points_roundtrip(seeded_store):
     points = seeded_store.client.scroll(seeded_store.collection, limit=10)[0]
     payload = points[0].payload
     assert payload["text"] in {
-        "NATO relies on collective defence and deterrence against Russia.",
-        "The US Air Force executes air superiority and long-range strike missions.",
+         "Building setbacks define minimum open space between plot boundary and building to ensure light, ventilation and safety.",
+         "Floor area ratio (FAR) is the ratio of built-up area to plot area as per development regulations.",
     }

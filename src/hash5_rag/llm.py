@@ -13,7 +13,7 @@ from langchain_core.language_models import BaseChatModel
 from langchain_openai import ChatOpenAI
 from portkey_ai import createHeaders
 
-from defence_rag.config import Settings, get_settings
+from hash5_rag.config import Settings, get_settings
 
 _FALLBACK_HANDLED: tuple[type[BaseException], ...] = (
     ModelRateLimitError,

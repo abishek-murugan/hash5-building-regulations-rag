@@ -3,23 +3,23 @@ import os
 from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import END, START, StateGraph
 
-from defence_rag.config import Settings, get_settings
-from defence_rag.guards import DefenceGuards, DefenceGuards as _G  # noqa: F401
-from defence_rag.graph.edges import build_edges
-from defence_rag.graph.nodes import RagNodes
-from defence_rag.graph.state import RagState, initial_state
-from defence_rag.vectorstore import DefenceVectorStore
+from hash5_rag.config import Settings, get_settings
+from hash5_rag.guards import Hash5Guards, Hash5Guards as _G  # noqa: F401
+from hash5_rag.graph.edges import build_edges
+from hash5_rag.graph.nodes import RagNodes
+from hash5_rag.graph.state import RagState, initial_state
+from hash5_rag.vectorstore import Hash5VectorStore
 
 
 def build_graph(
     llm,
-    store: DefenceVectorStore,
-    guards: DefenceGuards | None = None,
+    store: Hash5VectorStore,
+    guards: Hash5Guards | None = None,
     settings: Settings | None = None,
     embeddings=None,
 ):
     settings = settings or get_settings()
-    guards = guards or DefenceGuards()
+    guards = guards or Hash5Guards()
     nodes = RagNodes(llm, store, guards, settings, embeddings)
     e_in, e_router, e_grade, e_hall, e_answer = build_edges(settings)
 

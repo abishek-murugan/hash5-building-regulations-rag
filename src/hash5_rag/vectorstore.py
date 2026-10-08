@@ -6,7 +6,7 @@ from langchain_core.documents import Document
 from qdrant_client import QdrantClient
 from qdrant_client.http import models as qm
 
-from defence_rag.config import Settings
+from hash5_rag.config import Settings
 
 
 def _tokenize(text: str) -> list[str]:
@@ -15,7 +15,7 @@ def _tokenize(text: str) -> list[str]:
     return re.findall(r"[a-z0-9]+", text.lower())
 
 
-class DefenceVectorStore:
+class Hash5VectorStore:
     """Qdrant dense store + in-process BM25 lexical index, fused with RRF."""
 
     def __init__(self, settings: Settings, client: QdrantClient | None = None):

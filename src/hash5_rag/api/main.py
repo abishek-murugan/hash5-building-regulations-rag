@@ -7,9 +7,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from defence_rag.config import get_settings
-from defence_rag.llm import build_chat_with_fallbacks
-from defence_rag.vectorstore import DefenceVectorStore
+from hash5_rag.config import get_settings
+from hash5_rag.llm import build_chat_with_fallbacks
+from hash5_rag.vectorstore import Hash5VectorStore
 
 
 def create_app() -> FastAPI:
@@ -27,7 +27,7 @@ def create_app() -> FastAPI:
     def _startup() -> None:
         settings = get_settings()
         state["settings"] = settings
-        state["store"] = DefenceVectorStore(settings)
+        state["store"] = Hash5VectorStore(settings)
         state["llm"] = build_chat_with_fallbacks()
 
     @app.on_event("shutdown")
@@ -51,7 +51,7 @@ def create_app() -> FastAPI:
 
     @app.get("/health")
     def health() -> dict:
-        store: DefenceVectorStore = state["store"]
+        store: Hash5VectorStore = state["store"]
         return {
             "status": "ok",
             "collection": store.collection,
@@ -61,12 +61,12 @@ def create_app() -> FastAPI:
 
     @app.post("/ask", response_model=AskResponse)
     def ask(req: AskRequest) -> AskResponse:
-        from defence_rag.guards import DefenceGuards
-        from defence_rag.graph.build import build_graph
-        from defence_rag.graph.state import initial_state
+        from hash5_rag.guards import Hash5Guards
+        from hash5_rag.graph.build import build_graph
+        from hash5_rag.graph.state import initial_state
 
         settings = state["settings"]
-        guards = DefenceGuards()
+        guards = Hash5Guards()
         graph = build_graph(state["llm"], state["store"], guards, settings=settings)
 
         t0 = time.perf_counter()
@@ -90,4 +90,4 @@ def create_app() -> FastAPI:
 app = create_app()
 
 if __name__ == "__main__":
-    uvicorn.run("defence_rag.api.main:app", host="0.0.0.0", port=8000, reload=False)
+    uvicorn.run("hash5_rag.api.main:app", host="0.0.0.0", port=8000, reload=False)

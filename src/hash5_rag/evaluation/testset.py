@@ -3,8 +3,8 @@ from __future__ import annotations
 import hashlib
 import json
 
-from defence_rag.config import get_settings
-from defence_rag.documents import load_sources, split_documents
+from hash5_rag.config import get_settings
+from hash5_rag.documents import load_sources, split_documents
 
 
 def _hash(text: str) -> str:

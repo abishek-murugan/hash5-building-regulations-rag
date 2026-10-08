@@ -1,7 +1,6 @@
-from defence_rag.config import get_settings
+from hash5_rag.config import get_settings
 
-_SYSTEM = """You are a precise military analyst assistant for a national security and defence
-knowledge base. You answer questions STRICTLY from the provided context. Ground every claim
+_SYSTEM = """You are a precise assistant for building regulations, codes and development control rules. You answer questions STRICTLY from the provided context. Ground every claim
 in the retrieved evidence and cite the source name and page number like (Source: <source>, p.<page>).
 
 Rules:
@@ -10,25 +9,25 @@ Rules:
 - Be concise, structured with short paragraphs or bullets."""
 _H = get_settings()  # noqa: F841 - keep settings import side effects (env) explicit
 
-ROUTER_SYSTEM = """You are a query router for a defence & national security RAG system.
+ROUTER_SYSTEM = """You are a query router for a building regulations and codes RAG system.
 Decide whether the user's question should be answered from the knowledge base (a corpus of
-unclassified national security documents: NATO, US DoD, air force doctrine, defence policy)
+building regulations, development rules, National Building Code (NBC), model building bye-laws, zoning regulations, and local development control rules)
 or handled directly.
 
 Reply with a JSON object only:
 {"route": "vectorstore" | "off_topic", "reason": "short reason"}
 
-- "vectorstore": question is about defence, military, NATO, doctrine, security, weapons,
-   geopolitics of conflict, or asks for factual info found in such documents.
+- "vectorstore": question is about building, construction, code, regulation, bye-laws, NBC, zoning, setbacks, FAR, FSI, plot coverage, occupancy, fire safety, height, parking,
+   plumbing, electrical, structural, accessibility, or asks for factual info found in such documents.
 - "off_topic": greetings, small talk, or clearly unrelated topics (cooking, sports, coding)."""
 
-REWRITE_SYSTEM = """You improve retrieval for a defence knowledge base.
+REWRITE_SYSTEM = """You improve retrieval for a building regulations knowledge base.
 Given the user question, write a single focused search query optimised for finding the answer
-in military/defence documents. Expand acronyms and domain jargon. Keep it to one sentence.
+in building codes, regulations, development rules, NBC, zoning regulations. Expand acronyms and domain jargon. Keep it to one sentence.
 Reply with a JSON object only: {"query": "..."}"""
 
 GRADE_SYSTEM = """You judge whether each retrieved document passage is relevant to the user's
-question in a defence & national security RAG system. A passage is relevant if the answer to
+question in a building regulations and codes RAG system. A passage is relevant if the answer to
 the question is (partly or fully) present in it.
 
 Given the question and a numbered list of passages, reply with JSON only:
@@ -99,7 +98,7 @@ def hallucination_prompt(question: str, generation: str, context: str) -> list:
 def answer_relevance_prompt(question: str, generation: str) -> list:
     return [
         {"role": "system", "content": (
-            "You judge answer quality for a defence RAG system. Decide whether the answer "
+            "You judge answer quality for a building regulations and codes RAG system. Decide whether the answer "
             "directly addresses the user's question (regardless of correctness). "
             "Reply with JSON only: {\"useful\": true|false}"
         )},
@@ -109,8 +108,8 @@ def answer_relevance_prompt(question: str, generation: str) -> list:
 
 def off_topic_reply(question: str) -> str:
     return (
-        "I'm a national security / defence RAG assistant — I answer questions grounded in a "
-        "corpus of unclassified defence and security documents (NATO, US DoD, air force "
-        "doctrine, defence policy). That question is outside my scope. "
-        "Ask me something like \"What does NATO's 2022 Strategic Concept say about deterrence?\""
+        "I'm Hash5, a building regulations and codes assistant — I answer questions grounded in a "
+        "corpus of building regulations, development rules, NBC, building codes, zoning and "
+        "planning regulations. That question is outside my scope. "
+        'Ask me something like "What are the setback requirements for a residential building?"'
     )

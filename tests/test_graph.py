@@ -1,11 +1,11 @@
-from defence_rag.config import get_settings
-from defence_rag.graph.build import build_graph
-from defence_rag.graph.state import initial_state
-from defence_rag.prompts import off_topic_reply
+from hash5_rag.config import get_settings
+from hash5_rag.graph.build import build_graph
+from hash5_rag.graph.state import initial_state
+from hash5_rag.prompts import off_topic_reply
 from tests.fakes import scripted
 
 
-def _run(llm, seeded_store, guards, embeddings, query="What does NATO do?"):
+def _run(llm, seeded_store, guards, embeddings, query="What are setbacks for buildings?"):
     graph = build_graph(llm, seeded_store, guards, settings=get_settings(), embeddings=embeddings)
     return graph.invoke(initial_state(query), {"recursion_limit": 20})
 
@@ -13,14 +13,14 @@ def _run(llm, seeded_store, guards, embeddings, query="What does NATO do?"):
 def test_happy_path_relevance_loop(seeded_store, guards, embeddings):
     llm = scripted(
         '{"route": "vectorstore"}',       # router
-        '{"query": "NATO collective defence"}',  # rewrite
+        '{"query": "setback regulations"}',  # rewrite
         '{"relevant_indices": [0]}',      # grade
-        "NATO relies on collective defence (Source: NATO p.1).",  # generate
+        "setback rules apply as per building code (Source: NATO p.1).",  # generate
         '{"supported": true}',            # hallucination
         '{"useful": true}',               # answer
     )
     result = _run(llm, seeded_store, guards, embeddings)
-    assert "collective defence" in result["generation"]
+    assert "setback" in result["generation"]
     assert result["output_guard_fail"] is False
     assert result["citations"]
 

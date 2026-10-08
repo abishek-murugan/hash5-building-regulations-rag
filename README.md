@@ -1,7 +1,7 @@
-# Defence RAG
+# Hash5 Building Regulations RAG
 
 A production-grade, agentic Retrieval-Augmented Generation service for publicly
-available defence doctrine, built to run **entirely on free tiers** (zero spend).
+available building regulations and building codes, built to run **entirely on free tiers** (zero spend).
 
 Pipeline: user → Guardrails input validation → LangGraph self-corrective agent
 (rewrite → hybrid RAG → retrieve → grade → generate → groundedness → usefulness)
@@ -47,7 +47,7 @@ LangGraph agent  ──►  dense query → RRF fusion ←──────┘
 ## Layout
 
 ```
-src/defence_rag/
+src/hash5_rag/
   config.py       env/settings (pydantic-settings) + observability env
   llm.py          Portkey→OpenRouter factory, fallbacks, cached embeddings
   guards.py       Guardrails AI custom validators
@@ -63,7 +63,7 @@ scripts/
   ingest.py          build/refresh the Qdrant collection
   evaluate.py        testset | run | metrics | all  (resumable)
   serve.py           run the FastAPI service
-manifests/defence_sources.json
+manifests/hash5_sources.json
 tests/              guards, graph (scripted LLM), parsing, retrieval
 compose.yaml        qdrant + api stack        (.env required, see .env.example)
 Dockerfile
@@ -93,12 +93,15 @@ uv run python scripts/evaluate.py metrics                # RAGAS scores
 | --- | --- |
 | `OPENROUTER_API_KEY` | – |
 | `PORTKEY_API_KEY`, `PORTKEY_PROVIDER` | `@openrouter` |
-| `LANGSMITH_API_KEY`, `LANGSMITH_PROJECT` | `defence-rag` |
+| `LANGSMITH_API_KEY`, `LANGSMITH_PROJECT` | `hash5-rag` |
 | `PRIMARY_MODEL` / `FALLBACK_MODELS` | free Nemotron / 3 fallbacks |
 | `EMBED_MODEL` | `BAAI/bge-small-en-v1.5` |
-| `QDRANT_URL`, `QDRANT_COLLECTION` | `http://localhost:6333` / `defence_kb` |
+| `QDRANT_URL`, `QDRANT_COLLECTION` | `http://localhost:6333` / `hash5_kb` |
 | `CHUNK_SIZE`, `CHUNK_OVERLAP`, `TOP_K` | 800 / 120 / 4 |
 | `MAX_ITERATIONS` | 3 |
 
-All source documents are **public/unclassified** (NATO Strategic Concept 2022,
-DoD Instruction 3000.09, AFDP-1 Air Force Doctrine Publication).
+All source documents are **public-domain** building regulations and codes (e.g. TNCDRBR 2019, NBC provisions, relevant building bye-laws).
+
+## Project Context (Hash5)
+
+This is a freelance project built for Hash5, a small architectural practice, to help answer questions about building regulations, codes, and development control rules. It ingests public-domain building documents (e.g., Tamil Nadu Combined Development and Building Rules 2019, National Building Code provisions) and provides grounded answers with citations.

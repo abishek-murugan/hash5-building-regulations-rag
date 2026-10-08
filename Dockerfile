@@ -9,4 +9,4 @@ COPY src ./src
 COPY scripts ./scripts
 
 EXPOSE 8000
-CMD ["uv", "run", "uvicorn", "defence_rag.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "uvicorn", "hash5_rag.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
